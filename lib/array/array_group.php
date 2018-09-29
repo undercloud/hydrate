@@ -1,38 +1,30 @@
 <?php
 if (!function_exists('array_group')) {
-	/**
-	 * Group array values by specified key
-	 *
-	 * @param array $array target array
-	 * @param mixed $key   key for group
-	 * @return array
-	 */
-	function array_group(array $array, $key)
-	{
-		$group = [];
-		foreach ($array as $value) {
-			unset($key);
+    /**
+     * Group array values by specified key
+     *
+     * @param array $array  target array
+     * @param mixed $key    key for group
+     * @param mixed $subkey additional bound
+     *
+     * @return array
+     */
+    function array_group(array $array, $key, $subkey = null)
+    {
+        $groupped = [];
+        foreach ($array as $value) {
+            if (!isset($value[$key])) {
+                continue;
+            }
 
-			if (is_array($value)) {
-				if (isset($value[$key])) {
-					$key = $value[$key];
-				}
-			} else if (is_object($value)) {
-				if (isset($value->{$key})) {
-					$key = $value->{$key};
-				}
-			}
-			
-			if (isset($key)) {
-				if (false == isset($group[$key])) {
-					$group[$key] = [];
-				}
-			
-				$group[$key][] = $value;
-			}
-		}
+            $index = $value[$key];
+            if (null !== $subkey) {
+                $value = (isset($value[$subkey]) ? $value['subkey'] : null);
+            }
 
-		return $group;
-	}
+            $groupped[$index][] = $value;
+        }
+
+        return $groupped;
+    }
 }
-?>

@@ -1,30 +1,26 @@
-<?php	
+<?php
 if (!function_exists('array_cartesian')) {
-	/**
-	 * Return cartesian product for array
-	 *
-	 * @param array $arrays... variants
-	 * @return array
-	 */
-	function array_cartesian()
-	{			
-		$args = func_get_args();
-		
-		if (count($args) == 0) {
-			return [[]];
-		}
+    /**
+     * Return cartesian product for array
+     *
+     * @param array $arrays... variants
+     *
+     * @return array
+     */
+    function array_cartesian()
+    {
+        $args = func_get_args();
 
-		$a = array_shift($args);
-		$c = call_user_func_array(__FUNCTION__, $args);
-		$r = [];
+        $first = (array) array_shift($args);
+        $call = call_user_func_array(__FUNCTION__, $args);
 
-		foreach ($a as $v) {
-			foreach ($c as $p) {
-				$r[] = array_merge([$v], $p);
-			}
-		}
+        $result = [];
+        foreach ($first as $f) {
+            foreach ($call as $c) {
+                $result[] = array_merge([$f], $c);
+            }
+        }
 
-		return $r;
-	}
+        return $result;
+    }
 }
-?>

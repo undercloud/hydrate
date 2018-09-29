@@ -1,32 +1,30 @@
 <?php
 if (!function_exists('array_union')) {
-	/**
-	 * Union two arrays by given keys
-	 *
-	 * @param array $main
-	 * @param mixed $id
-	 */
-	function array_union(array $main, $id, array $part, $field = null)
-	{
-		if (!$part) {
-			return $main;
-		}
+    /**
+     * Union two arrays by given keys
+     *
+     * @param array $main
+     * @param mixed $id
+     */
+    function array_union(array $what, array $with, $to, $by)
+    {
+        if (!$with) {
+            return $what;
+        }
 
-		foreach ($main as &$item) {
-			if (isset($item[$id])) {
-				if (isset($part[$id])) {
-					if (null != $field) {
-						$item[$id] = (isset($part[$id][$field]) ? $part[$id][$field] : null);
-					} else {
-						$item[$id] = $part[$id];
-					}
-				}
-			}
-		}
+        if (!function_exists('array_values')) {
+            require_once(__DIR__ . '/array_values.php');
+        }
 
-		unset($item);
+        $with = array_index($with, $by);
 
-		return $main;
-	}
+        return array_map(function ($item) use ($with, $to) {
+            $key = $item[$to];
+            if (isset($with[$key])) {
+                $item = array_merge((array) $item, $with[$key]);
+            }
+
+            return $item;
+        }, $what);
+    }
 }
-?>

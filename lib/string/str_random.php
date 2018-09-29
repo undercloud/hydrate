@@ -2,7 +2,7 @@
 if (false == function_exists('str_random')) {
 	function str_random($len, array $alph = [])
 	{
-		$len = (int)$len;
+		$len = (int) $len;
 
 		if (!$alph) {
 			$alph = array_merge(
@@ -12,14 +12,8 @@ if (false == function_exists('str_random')) {
 			);
 		}
 
-		$rand = '';
-		$alph_len = count($alph);
-		for ($i = 0; $i < $len; $i++) {
-			$index = mt_rand(0, $alph_len);
-			$rand .= $alph[$index];
-		}
+        shuffle($alph);
 
-		return $rand;
+        return implode(array_rand(array_flip($alph), $len));
 	}
 }
-?>
