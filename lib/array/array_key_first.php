@@ -1,5 +1,5 @@
 <?php
-if (!function_exists('array_first_key')) {
+if (!function_exists('array_key_first')) {
     /**
      * Returns the first key of an array
      *
@@ -7,7 +7,7 @@ if (!function_exists('array_first_key')) {
      *
      * @return mixed
      */
-    function array_first_key(array $array)
+    function array_key_first(array $array)
     {
         foreach ($array as $key => $val) {
             return $key;

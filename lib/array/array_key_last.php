@@ -1,5 +1,5 @@
 <?php
-if (false == function_exists('array_last_key')) {
+if (false == function_exists('array_key_last')) {
     /**
      * Returns the last key of an array
      *
@@ -7,7 +7,7 @@ if (false == function_exists('array_last_key')) {
      *
      * @return mixed
      */
-    function array_last_key(array &$array)
+    function array_key_last(array &$array)
     {
         $last = array_slice($array, -1);
 
